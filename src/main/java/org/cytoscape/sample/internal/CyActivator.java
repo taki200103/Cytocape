@@ -16,10 +16,16 @@ public class CyActivator extends AbstractCyActivator {
         VisualMappingManager visualMappingManager = getService(context, VisualMappingManager.class);
         VisualMappingFunctionFactory discreteMappingFactory = getService(context, VisualMappingFunctionFactory.class);
 
-        NodeClassificationTaskFactory taskFactory = new NodeClassificationTaskFactory(applicationManager, networkViewManager, visualMappingManager, discreteMappingFactory);
-        Properties properties = new Properties();
-        properties.put("preferredMenu", "Apps.MyApp");
-        properties.put("title", "Node Classification");
-        registerService(context, taskFactory, org.cytoscape.work.TaskFactory.class, properties);
+        NodeClassificationTaskFactory classificationTaskFactory = new NodeClassificationTaskFactory(applicationManager, networkViewManager, visualMappingManager, discreteMappingFactory);
+        Properties classificationProps = new Properties();
+        classificationProps.put("preferredMenu", "Apps.MyApp");
+        classificationProps.put("title", "Node Classification");
+        registerService(context, classificationTaskFactory, org.cytoscape.work.TaskFactory.class, classificationProps);
+
+        GroupNodesTaskFactory groupTaskFactory = new GroupNodesTaskFactory(applicationManager, networkViewManager);
+        Properties groupProps = new Properties();
+        groupProps.put("preferredMenu", "Apps.MyApp");
+        groupProps.put("title", "Group Nodes by Label");
+        registerService(context, groupTaskFactory, org.cytoscape.work.TaskFactory.class, groupProps);
     }
 }

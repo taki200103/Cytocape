@@ -4,7 +4,6 @@ import org.cytoscape.work.AbstractTask;
 import org.cytoscape.work.TaskMonitor;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.model.CyNetwork;
-import org.cytoscape.model.CyNode;
 import org.cytoscape.view.model.CyNetworkViewManager;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.presentation.property.BasicVisualLexicon;
@@ -12,7 +11,6 @@ import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.view.vizmap.VisualStyle;
 import org.cytoscape.view.vizmap.VisualMappingFunctionFactory;
 import org.cytoscape.view.vizmap.mappings.DiscreteMapping;
-import javax.swing.JOptionPane;
 import java.awt.Paint;
 import java.awt.Color;
 import java.util.HashMap;
@@ -39,7 +37,6 @@ public class NodeClassificationTask extends AbstractTask {
 
         CyNetwork network = applicationManager.getCurrentNetwork();
         if (network == null) {
-            JOptionPane.showMessageDialog(null, "No network loaded.");
             return;
         }
 
@@ -48,7 +45,6 @@ public class NodeClassificationTask extends AbstractTask {
 
         CyNetworkView networkView = networkViewManager.getNetworkViews(network).iterator().next();
         if (networkView == null) {
-            JOptionPane.showMessageDialog(null, "No network view available.");
             return;
         }
 
@@ -79,13 +75,5 @@ public class NodeClassificationTask extends AbstractTask {
 
         taskMonitor.setProgress(1.0);
         taskMonitor.setStatusMessage("Hoàn thành!");
-
-        // Đảm bảo task kết thúc
-        insertTasksAfterCurrentTask(new AbstractTask() {
-            @Override
-            public void run(TaskMonitor tm) {
-                JOptionPane.showMessageDialog(null, "Nodes with the same label have been colored.");
-            }
-        });
     }
 }
